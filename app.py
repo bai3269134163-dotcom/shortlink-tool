@@ -18,8 +18,19 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 def create_short_link(long_url, medium, campaign):
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
+        # 1. 启动 Chromium 并关闭一些容易被识别的自动化特征
+        browser = p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled", "--no-sandbox"]
+        )
+        
+        # 2. 伪装成真实的桌面端普通浏览器环境
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            viewport={"width": 1920, "height": 1080},
+            locale="zh-CN"
+        )
+        page = context.new_page()
 
         try:
             page.goto("https://reurl.cc/main/cn", wait_until="domcontentloaded")
