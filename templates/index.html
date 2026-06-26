@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>短链生成工具</title>
+</head>
+
+<body style="font-family: Arial; text-align:center; margin-top:80px;">
+
+    <h2>Excel → 一键生成短链</h2>
+
+    <!-- 上传表单 -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+
+        <input type="file" name="file">
+
+        <br><br>
+
+        <button type="submit" style="
+            padding:10px 20px;
+            background:green;
+            color:white;
+            border:none;
+            cursor:pointer;
+        ">
+            开始生成
+        </button>
+
+    </form>
+
+    <p style="margin-top:30px;color:gray;">
+        上传Excel后自动生成 short_url
+    </p>
+
+</body>
+</html>
